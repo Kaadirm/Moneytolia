@@ -21,10 +21,6 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Invalid username or password");
   }
 
-  const token = user.createJWT();
-
-  res.status(StatusCodes.OK).json({ user: username, token });
-
   try {
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({
