@@ -1,0 +1,42 @@
+<div class="form-wrapper">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
+    <h2 class="title">Hesap Oluştur</h2>
+    <div class="form-group">
+      <label for="username" class="form-label">Kullanıcı Adı</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        required
+        class="form-control"
+      />
+      <div *ngIf="isControlInvalid('username')" class="error-message">
+        {{ getValidationMessage("username") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="form-label">Şifre</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        required
+        class="form-control"
+      />
+      <div *ngIf="isControlInvalid('password')" class="error-message">
+        {{ getValidationMessage("password") }}
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid" class="btn">
+      <div *ngIf="isLoading" class="loading-div">
+        <div class="loading"></div>
+      </div>
+      Oluştur
+    </button>
+
+    <p class="registerLink">Hesabım var. <a href="/login">Giriş yap</a></p>
+  </form>
+</div>
