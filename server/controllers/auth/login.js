@@ -24,11 +24,12 @@ const login = async (req, res) => {
   try {
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({
-      user: {
+      data: {
         username: user.username,
       },
       token,
       msg: "Login successful",
+      success: true,
     });
   } catch (err) {
     console.error(err);
