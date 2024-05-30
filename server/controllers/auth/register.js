@@ -16,11 +16,11 @@ const register = async (req, res) => {
   try {
     const user = await User.create({ ...req.body });
     const token = user.createJWT();
-    console.log("Registration successful");
     return res.status(StatusCodes.CREATED).json({
-      user: { username: user.username },
+      data: { username: user.username },
       token,
       msg: "Registration successful",
+      success: true,
     });
   } catch (err) {
     console.error(err.message);
