@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
+import { baseUrl } from '../../constants/baseUrl';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,7 @@ export class LoginComponent {
   errorMessage: string = '';
 
   // constructor
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -53,31 +55,25 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      if (this.loginForm.valid) {
-        this.isLoading = true;
-        this.http.post("http://localhost:3000/api/login", this.loginForm.value).subscribe(
+      this.isLoading = true;
+      this.http.post(`${baseUrl}/login`, this.loginForm.value).
+        subscribe(
           {
             next: (res: any) => {
-              console.log('Login success');
-              console.log(res);
               this.isLoading = false;
+              this.authService.setAuthToken(res.token);
               this.router.navigateByUrl('/campaign-list');
             },
             error: (err: any) => {
-              console.log(err);
               this.errorMessage = err.error.msg;
-              console.log(err.error.msg);
               this.isLoading = false;
+
             },
             complete: () => {
               console.log("completed");
             }
           }
         );
-      }
-
-      // TODO Storing the user's authentication token in local storage:
-      // TODO localStorage.setItem('token', 'token_here');
     }
   }
 }
