@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { baseUrl } from '../../constants/baseUrl';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +24,7 @@ export class RegisterComponent {
   errorMessage: string = '';
 
   // constructor
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -52,12 +54,13 @@ export class RegisterComponent {
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.isLoading = true;
-      this.http.post("http://localhost:3000/api/register", this.registerForm.value).subscribe(
+      this.http.post(`${baseUrl}/register`, this.registerForm.value).subscribe(
         {
           next: (res: any) => {
             console.log('Register success');
             console.log(res);
             this.isLoading = false;
+            this.router.navigateByUrl('/login');
           },
           error: (err: any) => {
             console.log(err);
@@ -72,6 +75,4 @@ export class RegisterComponent {
       );
     }
   }
-
-  // TODO: sending user to login when they register is successful
 }
