@@ -1,1 +1,53 @@
-<p>campaign-list works!</p>
+<div class="campaign-wrapper">
+  <div class="campaign-frame">
+    <table class="campaign-table">
+      <thead>
+        <tr>
+          <th>Başlık</th>
+          <th>Açıklama</th>
+          <th>Puan</th>
+          <th>Tarih</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let campaign of campaigns; let i = index">
+          <td>{{ campaign.campaignTitle }}</td>
+          <td>{{ campaign.campaignDescription }}</td>
+          <td>
+            <div class="point-controls">
+              <button (click)="decreasePoints(i)">-</button>
+              <span>{{ campaign.campaignPoint }}</span>
+              <button (click)="increasePoints(i)">+</button>
+            </div>
+          </td>
+          <td>{{ campaign.campaignDate }}</td>
+          <td>
+            <div class="model-controls">
+              <button (click)="openUpdateModal(campaign, i)">Güncelle</button>
+              <button (click)="deleteCampaign(i)">Sil</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Update Modal -->
+    <div *ngIf="showUpdateModal" class="modal">
+      <form [formGroup]="updateForm" (ngSubmit)="updateCampaign()">
+        <label for="updateTitle">Başlık:</label>
+        <input type="text" id="updateTitle" formControlName="campaignTitle" />
+
+        <label for="updateDescription">Açıklama:</label>
+        <textarea
+          id="updateDescription"
+          formControlName="campaignDescription"
+        ></textarea>
+        <div class="button-div">
+          <button type="submit">Güncelle</button>
+          <button type="button" (click)="closeUpdateModal()">İptal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
