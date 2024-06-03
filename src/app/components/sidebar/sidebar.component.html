@@ -1,1 +1,45 @@
-<p>sidebar works!</p>
+<aside [ngClass]="{ open: openSideMenu, closed: !openSideMenu }">
+  <div>
+    <div class="top-section">
+      <div class="menu-toggle" (click)="toggleSideMenu()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            [attr.d]="'M3 18h18v-2H3v2zM3 13h18v-2H3v2zM3 6v2h18V6H3z'"
+            fill="#000"
+          />
+        </svg>
+      </div>
+    </div>
+    <ul class="navbar">
+      <li *ngFor="let item of navbar; let i = index">
+        <div
+          class="nav-item"
+          [ngClass]="{
+            active: isPathActive(item.href),
+            inactive: !isPathActive(item.href)
+          }"
+        >
+          <a [routerLink]="item.href">
+            <app-svg-icon class="nav-icon" [path]="item.icon"></app-svg-icon>
+            <span *ngIf="openSideMenu">{{ item.text }}</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="logout-button">
+    <app-svg-icon
+      class="logout-icon"
+      path="../../../assets/logout-icon.svg"
+    ></app-svg-icon>
+    <div class="logout-text" *ngIf="openSideMenu" (click)="logout()">
+      Çıkış Yap
+    </div>
+  </div>
+</aside>
