@@ -1,0 +1,75 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+.campaign-createPage-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  padding-top: 2.5rem;
+  .campaign-createPage-frame {
+    width: 100%;
+    max-width: 500px;
+    form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 2rem;
+      .campaign-headline {
+        font-size: 2rem;
+        font-weight: 600;
+        color: rgb(1, 44, 97, 0.8);
+        text-align: center;
+        margin-bottom: 1.75rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        row-gap: 0.5rem;
+        label {
+          font-size: 1.2rem;
+          font-weight: 500;
+          color: rgb(1 44 97);
+        }
+        input,
+        textarea {
+          font-size: 1.15rem;
+          border-radius: 10px;
+          border: 2px solid rgb(128, 128, 128, 0.5);
+          box-shadow: 0 0 5px rgb(128, 128, 128, 0.5);
+          padding: 1rem;
+        }
+        input[type="date"] {
+          font-size: 1.15rem;
+        }
+      }
+      .submit-button-div {
+        display: flex;
+        justify-content: center;
+        button[type="submit"] {
+          padding: 1rem 3rem;
+          border-radius: 10px;
+          background-color: rgb(1, 44, 97);
+          color: white;
+          font-size: 1.2rem;
+          font-weight: 500;
+          transition: background-color 0.5s ease-in-out;
+          &:hover {
+            background-color: rgb(1, 44, 97, 0.8);
+          }
+        }
+        button[type="submit"]:not([disabled]) {
+          cursor: pointer;
+        }
+      }
+    }
+    .campaign-create-successMessage {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      color: rgb(1, 44, 97);
+    }
+  }
+}
