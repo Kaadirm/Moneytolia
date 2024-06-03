@@ -61,7 +61,7 @@ export class LoginComponent {
           {
             next: (res: any) => {
               this.isLoading = false;
-              this.authService.setAuthToken(res.token);
+              this.authService.setAuthToken(res.token, res.data.username);
               this.router.navigateByUrl('/campaign-list');
             },
             error: (err: any) => {
