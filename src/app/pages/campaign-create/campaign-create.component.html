@@ -1,0 +1,116 @@
+<div class="campaign-createPage-wrapper">
+  <div class="campaign-createPage-frame">
+    <form [formGroup]="campaignCreateForm" (ngSubmit)="saveCampaign()">
+      <div class="campaign-headline">Kampanya Oluştur</div>
+
+      <div class="form-group">
+        <label for="campaignTitle">Kampanya Başlığı:</label>
+        <input
+          type="text"
+          id="campaignTitle"
+          formControlName="campaignTitle"
+          required
+        />
+        <div
+          *ngIf="
+            campaignCreateForm.get('campaignTitle')?.invalid &&
+            (campaignCreateForm.get('campaignTitle')?.dirty ||
+              campaignCreateForm.get('campaignTitle')?.touched)
+          "
+        >
+          <small
+            class="error"
+            *ngIf="campaignCreateForm.get('campaignTitle')?.errors?.['required']"
+            >Bu alan zorunludur.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="campaignDescription">Kampanya Açıklaması:</label>
+        <textarea
+          id="campaignDescription"
+          formControlName="campaignDescription"
+          required
+        ></textarea>
+        <div
+          *ngIf="
+            campaignCreateForm.get('campaignDescription')?.invalid &&
+            (campaignCreateForm.get('campaignDescription')?.dirty ||
+              campaignCreateForm.get('campaignDescription')?.touched)
+          "
+        >
+          <small
+            class="error"
+            *ngIf="
+              campaignCreateForm.get('campaignDescription')?.errors?.['required']
+            "
+            >Bu alan zorunludur.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="campaignPoint">Kampanya Puanı:</label>
+        <input
+          type="number"
+          id="campaignPoint"
+          formControlName="campaignPoint"
+          min="0"
+          required
+        />
+        <div
+          *ngIf="
+            campaignCreateForm.get('campaignPoint')?.invalid &&
+            (campaignCreateForm.get('campaignPoint')?.dirty ||
+              campaignCreateForm.get('campaignPoint')?.touched)
+          "
+        >
+          <small
+            class="error"
+            *ngIf="campaignCreateForm.get('campaignPoint')?.errors?.['required']"
+            >Bu alan zorunludur.</small
+          >
+          <small
+            class="error"
+            *ngIf="campaignCreateForm.get('campaignPoint')?.errors?.['min']"
+            >Değer 0 veya daha büyük olmalıdır.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="campaignDate">Kampanya Tarihi:</label>
+        <input
+          type="date"
+          id="campaignDate"
+          formControlName="campaignDate"
+          required
+        />
+        <div
+          *ngIf="
+            campaignCreateForm.get('campaignDate')?.invalid &&
+            (campaignCreateForm.get('campaignDate')?.dirty ||
+              campaignCreateForm.get('campaignDate')?.touched)
+          "
+        >
+          <small
+            class="error"
+            *ngIf="campaignCreateForm.get('campaignDate')?.errors?.['required']"
+            >Bu alan zorunludur.</small
+          >
+        </div>
+      </div>
+
+      <div class="submit-button-div">
+        <button type="submit" [disabled]="campaignCreateForm.invalid">
+          Kaydet
+        </button>
+      </div>
+    </form>
+
+    <p class="campaign-create-successMessage" *ngIf="showSuccessMessage">
+      {{ successMessage }}
+    </p>
+  </div>
+</div>
